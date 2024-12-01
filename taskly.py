@@ -129,6 +129,11 @@ def add_task(database: dict[str, dict], description: str) -> None:
 def delete_task(database: dict[str, dict], id: str) -> None:
     list_task({id: database[id]})
     del database[id]
+    #update new id after deleting a task
+    key = list(database.keys())
+    for new_key, old_key in enumerate(key, start = 1):
+        if str(new_key) != old_key:
+            database[str(new_key)] = database.pop(old_key)
 
 
 def update_task(database: dict[str, dict], id: str, description: str) -> None:
